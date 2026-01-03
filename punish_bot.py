@@ -6,7 +6,7 @@ import os
 from datetime import datetime, timedelta, timezone
 
 # ================= НАСТРОЙКИ =================
-TOKEN = "MTQ1NjIyOTQ1Mzg5NzI3MzUzNw.GAEoln.6BGg7Y10WsMOvP33zCtkupddnuaGVqGHOaBxK0"
+TOKEN = ""
 GUILD_ID = 1170342894717108226
 PUNISH_ROLE_ID = 1406898764492570718
 ALLOWED_USER_ID = 1111359772797706380
@@ -225,3 +225,4 @@ async def on_app_command_error(interaction, error):
 
 # ---------- START ----------
 bot.run(TOKEN)
+
