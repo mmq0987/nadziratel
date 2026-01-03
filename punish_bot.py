@@ -70,7 +70,7 @@ async def on_ready():
         member = guild.get_member(uid)
         if member and role not in member.roles:
             await member.add_roles(role, reason="Перевыдача наказания")
-            log_action(f"Перевыдача роли наказания: {member}")
+            log_action(f"Перевыдача роли наказания: {member} ({member.id})")
 
 
 # ---------- /punish ----------
@@ -126,7 +126,7 @@ async def punish_list(interaction: discord.Interaction):
     lines = []
     for uid in punished_users:
         m = interaction.guild.get_member(uid)
-        lines.append(f"🔒 {m.mention}" if m else f"❓ `{uid}`")
+        lines.append(f"🔒 {m.mention} (`{uid}`)" if m else f"❓ `{uid}`")
 
     await interaction.followup.send(
         "📋 **Список хуеглотов:**\n" + "\n".join(lines),
@@ -134,7 +134,7 @@ async def punish_list(interaction: discord.Interaction):
     )
 
 
-# ---------- АНТИ-АДМИН ----------
+# ---------- АНТИ-АДМИН / АНТИ-СНЯТИЕ ----------
 @bot.event
 async def on_member_update(before, after):
     if after.id not in punished_users:
@@ -177,7 +177,7 @@ async def on_voice_state_update(member, before, after):
             voice_timers[member.id]["join_time"] = now
             log_action(f"ВОЙС: {member} зашел (5 мин)")
 
-    # САМ ВЫШЕЛ ИЗ ВОЙСА
+    # САМ ВЫШЕЛ
     elif before.channel is not None and after.channel is None:
         log_action(f"ВОЙС: {member} сам вышел из войса")
 
@@ -225,4 +225,3 @@ async def on_app_command_error(interaction, error):
 
 # ---------- START ----------
 bot.run(TOKEN)
-
